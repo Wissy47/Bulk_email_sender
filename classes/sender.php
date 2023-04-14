@@ -36,14 +36,14 @@ class Sender
         $body = $result['body'];
 
         $mail->isSMTP();
-        $mail->Host = 'smtp.example.com';
+        $mail->Host = $_ENV["HOST"];
         $mail->SMTPAuth = true;
         $mail->SMTPKeepAlive = true; //SMTP connection will not close after each email sent, reduces SMTP overhead
-        $mail->Port = 587;
-        $mail->Username = 'info@test.com';
+        $mail->Port = $_ENV["POST"];
+        $mail->Username = $_ENV["USERNAME"];
         $mail->Password = $_ENV['EMAIL_PASSWORD'];
-        $mail->setFrom('info@test.com', 'List manager');
-        $mail->addReplyTo('list@example.com', 'List manager');
+        $mail->setFrom($_ENV["FROM_EMAIL"], $_ENV["FROM_NAME"]);
+        $mail->addReplyTo($_ENV["FROM_EMAIL"], $_ENV["FROM_NAME"]);
 
         $mail->Subject = $result["subject"];
 
