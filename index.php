@@ -26,6 +26,10 @@
                     <label for="body" class="form-label">Email Body</label>
                     <textarea class="form-control" id="body" name="body" rows="3"></textarea>
                 </div>
+                <div class="mb-3">
+                    <label for="attachment" class="form-label">Attachment</label>
+                    <input type="file" class="form-control" id="attachment" name="attachment">
+                    </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Send</button>
                 </div>

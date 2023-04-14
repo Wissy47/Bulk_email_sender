@@ -51,6 +51,7 @@ class Sender
         //If you generate a different body for each recipient (e.g. you're using a templating system),
         //set it inside the loop
         $mail->msgHTML($body);
+        $mail->addAttachment($result["file"]);
         //msgHTML also sets AltBody, but if you want a custom one, set it afterwards
         $mail->AltBody = strip_tags($body);
         

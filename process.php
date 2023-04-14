@@ -12,8 +12,18 @@ if (empty($POST["body"])) {
     echo "Email body can not be empty";
     exit;
 }
+if (isset($_FILES["attachment"]) && empty($_FILES["attachment"]["name"])) {
+    $dir = "attachment/";
+    $location =  $dir.$_FILES["attachment"]["name"];
+    $temp_file  =  $FILES['pet_image']['tmp_name'];
+}
+if(move_uploaded_file($temp_file, $location)){
+    $POST["file"] = $location;
 
-$sender = new Sender;
+    $sender = new Sender;
 
-$sender->process_data($POST)
-->send_email();
+    $sender->process_data($POST)
+    ->send_email();
+// delete file after sending email;
+    unlink($location);
+}
