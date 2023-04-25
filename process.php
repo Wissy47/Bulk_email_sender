@@ -13,18 +13,23 @@ if (empty($POST["body"])) {
     exit;
 }
 $location = "";
-if (isset($_FILES["attachment"]) && !empty($_FILES["attachment"]["name"])) {
-    $dir = "attachment/";
-    $location =  $dir.$_FILES["attachment"]["name"];
-    $temp_file  =  $FILES['pet_image']['tmp_name'];
+if (isset($_FILES["attachment"]) && empty($_FILES["attachment"]["name"])) {
+    die("Attachment ERROR: Please check the attachment file");
 }
-if(move_uploaded_file($temp_file, $location)){
-    $POST["file"] = $location;
 
-    $sender = new Sender;
+$dir = "attachment/";
+$location =  $dir.$_FILES["attachment"]["name"];
+$temp_file  =  $FILES['pet_image']['tmp_name'];
 
-    $sender->process_data($POST)
+if(!(move_uploaded_file($temp_file, $location))){
+   die("Attachment ERROR: Please check the attachment file");
+}
+
+$POST["file"] = $location;
+$sender = new Sender;
+
+$sender->process_data($POST)
     ->send_email();
-}
+
 // delete file after sending email;
 if(file_exists($location)) unlink($location);
