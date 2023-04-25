@@ -39,7 +39,7 @@ class Sender
         $mail->Host = $_ENV["HOST"];
         $mail->SMTPAuth = true;
         $mail->SMTPKeepAlive = true; //SMTP connection will not close after each email sent, reduces SMTP overhead
-        $mail->Port = $_ENV["POST"];
+        $mail->Port = $_ENV["PORT"];
         $mail->Username = $_ENV["USERNAME"];
         $mail->Password = $_ENV['EMAIL_PASSWORD'];
         $mail->setFrom($_ENV["FROM_EMAIL"], $_ENV["FROM_NAME"]);
@@ -51,7 +51,10 @@ class Sender
         //If you generate a different body for each recipient (e.g. you're using a templating system),
         //set it inside the loop
         $mail->msgHTML($body);
-        $mail->addAttachment($result["file"]);
+        if ($result["file"]) {
+           $mail->addAttachment($result["file"]);
+        }
+        
         //msgHTML also sets AltBody, but if you want a custom one, set it afterwards
         $mail->AltBody = strip_tags($body);
         

@@ -12,7 +12,7 @@
     <section class="container">
         <div class="row">
             <div class="col-md-6 mx-auto">
-                <form action="process.php" method="post">
+                <form action="process.php" method="post" enctype='multipart/form-data'>
                 <div class="mb-3">
                     <label for="email-address" class="form-label">Email address</label>
                     <textarea class="form-control" id="email-address" name="email-address" rows="3"></textarea>
